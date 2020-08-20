@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-const String ROOT_SCREEN = '/';
-const String ALARM_MAIN_SCREEN = '/ALARM_MAIN_SCREEN';
-const String CREATE_ALARM_SCREEN = '/CREATE_ALARM_SCREEN';
+const String rootScreen = '/';
+const String alarmMainScreen = '/ALARM_MAIN_SCREEN';
+const String createAlarmScreen = '/CREATE_ALARM_SCREEN';
 
 class NavigatorHelper {
   static void goBack(BuildContext context) {
@@ -15,10 +15,10 @@ class NavigatorHelper {
   }
 
   static void navigateToAlarmPage(BuildContext context) {
-    Navigator.pushNamed(context, ALARM_MAIN_SCREEN);
+    Navigator.pushNamed(context, alarmMainScreen);
   }
 
   static void navigateToCreateAlarmPage(BuildContext context) {
-    Navigator.pushNamed(context, CREATE_ALARM_SCREEN);
+    Navigator.pushNamed(context, createAlarmScreen);
   }
 }

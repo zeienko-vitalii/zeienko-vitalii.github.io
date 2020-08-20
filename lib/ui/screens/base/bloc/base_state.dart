@@ -1,6 +1,12 @@
 part of 'base_bloc.dart';
 
 @immutable
-abstract class BaseState {}
+abstract class BaseBlocState {}
 
-class InitialBaseState extends BaseState {}
+class InitialBaseState extends BaseBlocState {}
+
+class UpdateThemeState extends BaseBlocState {
+  UpdateThemeState(this.theme);
+
+  final ThemeData theme;
+}

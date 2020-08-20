@@ -1,11 +1,9 @@
+import 'package:cv_profile/utils/localization/localization_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:minimal_alarm/utils/localization/localization_delegate.dart';
-import 'package:minimal_alarm/utils/navigation/navigation.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
-import 'data/db/db_manager.dart';
-import 'ui/screens/alarm_home_screen/alarm_home_screen.dart';
-import 'ui/screens/main_clock_screen/alarm_clock_screen.dart';
+import 'ui/screens/home/home_screen.dart';
 
 Future<void> main() async {
   await _init();
@@ -14,29 +12,42 @@ Future<void> main() async {
 
 Future<void> _init() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await DbManager().init();
 }
 
 class MinimalAlarmApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Minimal Clock',
+      title: 'My CV',
       debugShowCheckedModeBanner: false,
       routes: <String, WidgetBuilder>{
-        ROOT_SCREEN: (BuildContext context) => AlarmClockScreen(),
-        ALARM_MAIN_SCREEN: (BuildContext context) => AlarmHomeScreen(),
+        HomeScreen.homePath: (BuildContext context) => const HomeScreen(),
+      },
+      builder: (BuildContext contex, Widget child) {
+        return ResponsiveWrapper.builder(
+          BouncingScrollWrapper.builder(context, child),
+          maxWidth: 3840,
+          minWidth: 450,
+          defaultScale: true,
+          breakpoints: const <ResponsiveBreakpoint>[
+            ResponsiveBreakpoint.resize(450, name: MOBILE),
+            ResponsiveBreakpoint.autoScale(800, name: TABLET),
+            ResponsiveBreakpoint.autoScale(1000, name: TABLET),
+            ResponsiveBreakpoint.resize(1200, name: DESKTOP),
+            ResponsiveBreakpoint.autoScale(2880, name: 'laptop'),
+            ResponsiveBreakpoint.autoScale(2048, name: '2K'),
+            ResponsiveBreakpoint.autoScale(3840, name: '4K'),
+          ],
+        );
       },
       onGenerateRoute: (RouteSettings settings) {
         switch (settings.name) {
-          case ALARM_MAIN_SCREEN:
-            return _materialPageRoute(AlarmHomeScreen(), settings.arguments);
           default:
-            return _materialPageRoute(AlarmHomeScreen(), settings.arguments);
+            return _materialPageRoute(Container(color: Colors.red), settings.arguments);
         }
       },
-      localizationsDelegates: <LocalizationsDelegate<dynamic>>[
-        const LocalizationDelegate(),
+      localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+        LocalizationDelegate(),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],

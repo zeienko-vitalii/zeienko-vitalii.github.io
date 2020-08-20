@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:minimal_alarm/utils/constants/constants.dart';
+import 'package:cv_profile/utils/constants/constants.dart';
 
 class LocalizationManager {
   LocalizationManager(this.locale);

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cv_profile/assets/themes/dimens.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,9 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:websafe_svg/websafe_svg.dart';
+
+import 'project_gallery_dialog.dart';
 
 class WorkExperience extends StatefulWidget {
   const WorkExperience({Key key}) : super(key: key);
@@ -64,26 +69,41 @@ class _WorkExperienceState extends State<WorkExperience> {
         itemCount: 8,
         itemBuilder: (BuildContext context, int index) => _projectCard(index),
         staggeredTileBuilder: (int index) => StaggeredTile.count(2, index.isEven ? 1 : 2),
-        mainAxisSpacing: 40.w,
-        crossAxisSpacing: 20.w,
+        mainAxisSpacing: 4.w,
+        crossAxisSpacing: 4.w,
       ),
     );
   }
 
   Widget _projectCard(int index) {
-    return FlatButton(
-      onPressed: (){},
-      mouseCursor: MaterialStateMouseCursor.clickable,
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.w)),
-        child: Container(
-          color: Colors.green,
-          child: Center(
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
-              child: Text('$index'),
+    return RaisedButton(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.w)),
+      onPressed: () {
+        showDialog<dynamic>(context: context, builder: (BuildContext context){
+          return const ProjectGalleryDialog();
+        });
+      },
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      padding: EdgeInsets.zero,
+      child: Container(
+        color: Colors.white,
+        child: Stack(
+          fit: StackFit.expand,
+          alignment: AlignmentDirectional.center,
+          children: <Widget>[
+            ImageFiltered(
+              imageFilter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+              child: Image.asset(
+                'lib/assets/images/phone.jpg',
+                fit: BoxFit.fitWidth,
+              ),
             ),
-          ),
+            WebsafeSvg.asset(
+              index.isEven ? 'lib/assets/images/flutter.svg' : 'lib/assets/images/android.svg',
+              height: 64.w,
+              width: 64.w,
+            ),
+          ],
         ),
       ),
     );

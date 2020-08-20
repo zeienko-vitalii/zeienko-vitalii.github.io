@@ -94,54 +94,10 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
-          Container(
-            height: _headerHeight,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Center(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 88.w, vertical: 32.h),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Column(
-                          children: <Widget>[
-                            _avatarWidget(theme),
-                            indent(top: 68.h),
-                            Text(
-                              'Vitalii Zeienko',
-                              style: GoogleFonts.cinzel(
-                                fontSize: textSize_54,
-                                letterSpacing: 1.0,
-                                color: Colors.white,
-                              ),
-                            ),
-                            indent(top: 12.h),
-                            Text(
-                              'Mobile developer'.toUpperCase(),
-//                              style: GoogleFonts.inter(
-//                              style: GoogleFonts.raleway(
-                              style: GoogleFonts.cairo(
-                                fontSize: textSize_24,
-                                fontWeight: FontWeight.w200,
-                                letterSpacing: 2.5,
-                                wordSpacing: 1.5,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-//                        Expanded(child: _toggleButton()),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+//          Container(
+//            height: _headerHeight,
+//            child: _header(theme),
+//          ),
           Container(
             height: ScreenUtil.screenHeight,
             color: theme.primaryColor,
@@ -154,6 +110,54 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
           ),
         ],
       ),
+    );
+  }
+
+  Column _header(ThemeData theme) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Center(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 88.w, vertical: 32.h),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    _avatarWidget(theme),
+                    indent(top: 68.h),
+                    Text(
+                      'Vitalii Zeienko',
+                      style: GoogleFonts.cinzel(
+                        fontSize: textSize_54,
+                        letterSpacing: 1.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                    indent(top: 12.h),
+                    Text(
+                      'Mobile developer'.toUpperCase(),
+//                              style: GoogleFonts.inter(
+//                              style: GoogleFonts.raleway(
+                      style: GoogleFonts.cairo(
+                        fontSize: textSize_24,
+                        fontWeight: FontWeight.w200,
+                        letterSpacing: 2.5,
+                        wordSpacing: 1.5,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+//                        Expanded(child: _toggleButton()),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 

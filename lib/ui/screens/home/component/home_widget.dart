@@ -1,20 +1,18 @@
 import 'dart:ui';
 
-import 'package:cv_profile/assets/themes/dimens.dart';
-import 'package:cv_profile/assets/themes/themes.dart';
-import 'package:cv_profile/ui/common_widgets/common_widgets.dart';
 import 'package:cv_profile/ui/screens/base/bloc/base_bloc.dart';
 import 'package:cv_profile/ui/screens/base/widget/base_state.dart';
 import 'package:cv_profile/ui/screens/home/bloc/home_bloc.dart';
-import 'package:cv_profile/ui/screens/home/component/experience/work_experience.dart';
-import 'package:cv_profile/ui/screens/home/component/skills.dart';
+import 'package:cv_profile/ui/screens/home/component/skills/skills.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_screenutil/screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:transparent_image/transparent_image.dart';
-import 'about_me.dart';
+
+import 'about_me/about_me.dart';
+import 'experience/work_experience.dart';
+import 'header/header_widget.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({Key key}) : super(key: key);
@@ -26,7 +24,6 @@ class HomeWidget extends StatefulWidget {
 class _HomeWidgetState extends BaseState<HomeWidget> {
   HomeBloc get _bloc => context.bloc<HomeBloc>();
   final double _headerHeight = ScreenUtil.screenHeight;
-  final double _avatarSize = 264.w;
   double parallaxOffset = 0;
 
   @override
@@ -79,26 +76,15 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
     );
   }
 
-  Align _toggleButton() {
-    return Align(
-      alignment: AlignmentDirectional.topEnd,
-      child: Switch(
-        value: _bloc.selectedThemeKey == ThemeKeys.light,
-        onChanged: (bool value) {
-          _bloc.add(UpdateThemeEvent(value ? ThemeKeys.light : ThemeKeys.dark));
-        },
-      ),
-    );
-  }
-
   Widget _content(ThemeData theme) {
+    //            color: theme.primaryColor,
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
-//          Container(
-//            height: _headerHeight,
-//            child: _header(theme),
-//          ),
+          Container(
+            height: _headerHeight,
+            child: HeaderWidget(theme: theme),
+          ),
           Container(
             height: ScreenUtil.screenHeight,
             color: Colors.white,
@@ -107,104 +93,15 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
           Container(
             height: ScreenUtil.screenHeight,
             color: Colors.white,
-//            color: theme.primaryColor,
             child: const WorkExperience(),
           ),
           Container(
             height: ScreenUtil.screenHeight,
-            color: theme.primaryColor,
+            color: Colors.white,
             child: const Skills(),
           ),
         ],
       ),
-    );
-  }
-
-  Column _header(ThemeData theme) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Center(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 88.w, vertical: 32.h),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    _avatarWidget(theme),
-                    indent(top: 68),
-                    Text(
-                      'Vitalii Zeienko',
-                      style: GoogleFonts.cinzel(
-                        fontSize: textSize_54,
-                        letterSpacing: 1.0,
-                        color: Colors.white,
-                      ),
-                    ),
-                    indent(top: 12),
-                    Text(
-                      'Mobile developer. Make your ideas real'.toUpperCase(),
-//                              style: GoogleFonts.inter(
-//                              style: GoogleFonts.raleway(
-                      style: GoogleFonts.cairo(
-                        fontSize: textSize_24,
-                        fontWeight: FontWeight.w200,
-                        letterSpacing: 2.5,
-                        wordSpacing: 1.5,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-//                        Expanded(child: _toggleButton()),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Stack _avatarWidget(ThemeData theme) {
-    return Stack(
-      alignment: AlignmentDirectional.center,
-      children: <Widget>[
-        Container(
-          height: _avatarSize * 1.05,
-          width: _avatarSize * 1.05,
-          decoration: BoxDecoration(
-            color: theme.primaryColor,
-            shape: BoxShape.circle,
-            boxShadow: const <BoxShadow>[
-              BoxShadow(
-                color: Colors.black45,
-                blurRadius: 12,
-                spreadRadius: 8,
-              ),
-            ],
-          ),
-        ),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(184.w),
-          child: Container(
-            decoration: const BoxDecoration(shape: BoxShape.circle),
-            child: Center(
-              child: FadeInImage.memoryNetwork(
-                placeholder: kTransparentImage,
-                image: _bloc.selectedThemeKey == ThemeKeys.light
-                    ? 'lib/assets/images/profile_photo.jpg'
-                    : 'lib/assets/images/profile_photo_dark.jpg',
-                fit: BoxFit.cover,
-                height: _avatarSize,
-                width: _avatarSize,
-              ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 

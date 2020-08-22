@@ -1,18 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:websafe_svg/websafe_svg.dart';
 
-Widget indent({
-  num left = 0,
-  num top = 0,
-  num right = 0,
-  num bottom = 0,
-  num all,
-}) =>
-    Padding(
-      padding: EdgeInsets.only(
-        left: ScreenUtil().setWidth(all?.toDouble() ?? left?.toDouble()),
+class Indent extends StatelessWidget {
+  const Indent({
+    Key key,
+    this.start = 0,
+    this.top = 0,
+    this.end = 0,
+    this.bottom = 0,
+    this.all,
+  }) : super(key: key);
+  final num start, top, end, bottom, all;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsetsDirectional.only(
+        start: ScreenUtil().setWidth(all?.toDouble() ?? start?.toDouble()),
         top: ScreenUtil().setHeight(all?.toDouble() ?? top?.toDouble()),
-        right: ScreenUtil().setWidth(all?.toDouble() ?? right?.toDouble()),
+        end: ScreenUtil().setWidth(all?.toDouble() ?? end?.toDouble()),
         bottom: ScreenUtil().setHeight(all?.toDouble() ?? bottom?.toDouble()),
       ),
     );
+  }
+}
+
+Widget svg(String name, {double width, double height, double size, Color color}) {
+  return WebsafeSvg.asset(
+    name,
+    height: size ?? height ?? 26.w,
+    width: size ?? width ?? 26.w,
+    color: color,
+  );
+}

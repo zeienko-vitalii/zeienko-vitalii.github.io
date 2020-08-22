@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cv_profile/ui/common_widgets/common_widgets.dart';
 import 'package:cv_profile/ui/screens/base/bloc/base_bloc.dart';
 import 'package:cv_profile/ui/screens/home/bloc/home_bloc.dart';
 import 'package:cv_profile/ui/screens/home/component/experience/project_gallery_dialog.dart';
@@ -8,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
-import 'package:websafe_svg/websafe_svg.dart';
 
 class ProjectCard extends StatefulWidget {
   const ProjectCard({Key key, this.image}) : super(key: key);
@@ -80,11 +80,7 @@ class _ProjectCardState extends State<ProjectCard> {
                           fit: BoxFit.fitWidth,
                         ),
                       ),
-                      WebsafeSvg.asset(
-                        widget.image,
-                        height: 64.w,
-                        width: 64.w,
-                      ),
+                      svg(widget.image, size: 64.w),
                     ],
                   ),
                 ),
@@ -97,7 +93,8 @@ class _ProjectCardState extends State<ProjectCard> {
   }
 
   void _updateOpacity(ScrollNotificationState state) {
-    if (state.scroll.metrics.pixels >= 0 && state.scroll.metrics.pixels <= 710) {
+    if (state.scroll.metrics.pixels >= ScreenUtil.screenHeight &&
+        state.scroll.metrics.pixels <= ScreenUtil.screenHeight * 3.5) {
       opacity = 1;
       durationSeconds = 4;
     } else {

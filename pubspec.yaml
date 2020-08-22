@@ -29,7 +29,7 @@ dev_dependencies:
     sdk: flutter
   intl_translation:
   flutter_launcher_icons: ^0.7.5
-#  vector_math: ^2.0.8
+  url_launcher: ^5.5.0
 
 flutter_icons:
   android: "launcher_icon"

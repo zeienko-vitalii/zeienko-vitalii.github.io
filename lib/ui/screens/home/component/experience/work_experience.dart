@@ -67,20 +67,16 @@ class _WorkExperienceState extends State<WorkExperience> {
               itemCount: 8,
               shrinkWrap: true,
               padding: EdgeInsetsDirectional.only(start: 44.w, top: 44.w, end: 44.w, bottom: 24.w),
-              itemBuilder: (BuildContext context, int index) => _projectCard(index),
-              staggeredTileBuilder: (int index) => StaggeredTile.count(3, index.isEven ? 2 : 3),
+              itemBuilder: (BuildContext context, int index) => ProjectCard(
+                image: index.isEven ? 'lib/assets/images/flutter.svg' : 'lib/assets/images/android.svg',
+              ),
+              staggeredTileBuilder: (int index) => StaggeredTile.count(3, index.isEven ? 2 : 2),
               mainAxisSpacing: 20.w,
               crossAxisSpacing: 20.w,
             ),
           ),
         ],
       ),
-    );
-  }
-
-  Widget _projectCard(int index) {
-    return ProjectCard(
-      image: index.isEven ? 'lib/assets/images/flutter.svg' : 'lib/assets/images/android.svg',
     );
   }
 

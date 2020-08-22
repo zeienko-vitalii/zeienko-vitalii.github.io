@@ -1,10 +1,12 @@
 part of 'base_bloc.dart';
 
 @immutable
-abstract class BaseEvent {}
+abstract class BaseEvent {
+  const BaseEvent();
+}
 
 class UpdateThemeEvent extends BaseEvent {
-  UpdateThemeEvent(this.themeKey);
+  const UpdateThemeEvent(this.themeKey);
 
   final ThemeKeys themeKey;
 }

@@ -6,14 +6,15 @@ import 'package:cv_profile/ui/common_widgets/common_widgets.dart';
 import 'package:cv_profile/ui/screens/base/bloc/base_bloc.dart';
 import 'package:cv_profile/ui/screens/base/widget/base_state.dart';
 import 'package:cv_profile/ui/screens/home/bloc/home_bloc.dart';
+import 'package:cv_profile/ui/screens/home/component/experience/work_experience.dart';
 import 'package:cv_profile/ui/screens/home/component/skills.dart';
-import 'package:cv_profile/ui/screens/home/component/work_experience.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'about_me.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({Key key}) : super(key: key);
@@ -100,7 +101,13 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
 //          ),
           Container(
             height: ScreenUtil.screenHeight,
-            color: theme.primaryColor,
+            color: Colors.white,
+            child: const AboutMe(),
+          ),
+          Container(
+            height: ScreenUtil.screenHeight,
+            color: Colors.white,
+//            color: theme.primaryColor,
             child: const WorkExperience(),
           ),
           Container(
@@ -128,7 +135,7 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
                 Column(
                   children: <Widget>[
                     _avatarWidget(theme),
-                    indent(top: 68.h),
+                    indent(top: 68),
                     Text(
                       'Vitalii Zeienko',
                       style: GoogleFonts.cinzel(
@@ -137,9 +144,9 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
                         color: Colors.white,
                       ),
                     ),
-                    indent(top: 12.h),
+                    indent(top: 12),
                     Text(
-                      'Mobile developer'.toUpperCase(),
+                      'Mobile developer. Make your ideas real'.toUpperCase(),
 //                              style: GoogleFonts.inter(
 //                              style: GoogleFonts.raleway(
                       style: GoogleFonts.cairo(
@@ -202,6 +209,8 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
   }
 
   bool _updateOffsetAccordingToScroll(ScrollNotification scroll) {
+    print('${scroll.metrics.pixels}');
+    _bloc.add(ScrollNotificationEvent(scroll));
     setState(() => parallaxOffset = scroll.metrics.pixels);
     return true;
   }

@@ -1,18 +1,18 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:cv_profile/utils/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:cv_profile/utils/constants/constants.dart';
 
-class LocalizationManager {
-  LocalizationManager(this.locale);
+class AppLocalization {
+  AppLocalization(this.locale);
 
   final Locale locale;
   final Map<String, String> _sentences = <String, String>{};
 
-  static LocalizationManager of(BuildContext context) {
-    return Localizations.of<LocalizationManager>(context, LocalizationManager);
+  static AppLocalization of(BuildContext context) {
+    return Localizations.of<AppLocalization>(context, AppLocalization);
   }
 
   Future<bool> load() async {
@@ -28,6 +28,9 @@ class LocalizationManager {
     return true;
   }
 
-  String operator [](String key) =>
-      _sentences[key] ?? '';
+  String operator [](String key) => _sentences[key] ?? '';
+}
+
+extension LocalizationExt on BuildContext {
+  AppLocalization locale() => AppLocalization.of(this);
 }

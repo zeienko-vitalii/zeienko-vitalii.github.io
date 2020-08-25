@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:cv_profile/utils/localization/localization_manager.dart';
 
 class Skills extends StatefulWidget {
   const Skills({Key key}) : super(key: key);
@@ -33,7 +34,7 @@ class _SkillsState extends State<Skills> {
               ),
             ),
           ),
-          _skills(),
+          Expanded(child: _skills()),
         ],
       ),
     );
@@ -42,12 +43,11 @@ class _SkillsState extends State<Skills> {
   Widget _skills() {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 32.w),
-      child: Row(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Expanded(child: _hardSkills()),
-          const Indent(start: 32),
-          Flexible(child: _softSkills()),
+          _softSkills(),
         ],
       ),
     );
@@ -57,81 +57,100 @@ class _SkillsState extends State<Skills> {
     const List<MapEntry<String, int>> skills = <MapEntry<String, int>>[
       MapEntry<String, int>('flutter', 95),
       MapEntry<String, int>('dart', 95),
-      MapEntry<String, int>('android', 80),
-      MapEntry<String, int>('firebase', 85),
+      MapEntry<String, int>('reactivex', 93),
       MapEntry<String, int>('google_maps', 90),
-      MapEntry<String, int>('ios_apple', 65),
       MapEntry<String, int>('java', 90),
+      MapEntry<String, int>('firebase', 85),
+      MapEntry<String, int>('android', 80),
       MapEntry<String, int>('kotlin', 80),
+      MapEntry<String, int>('ios_apple', 65),
       MapEntry<String, int>('swift_1', 35),
     ];
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            'Hard Skills',
-            style: GoogleFonts.cairo(
-              fontSize: textSize_16,
-              fontWeight: FontWeight.w200,
-              letterSpacing: 2.5,
-              wordSpacing: 1.5,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          'Hard Skills',
+          style: GoogleFonts.cairo(
+            fontSize: textSize_16,
+            fontWeight: FontWeight.w200,
+            letterSpacing: 2.5,
+            wordSpacing: 1.5,
+          ),
+        ),
+        Expanded(
+          child: SingleChildScrollView(
+            child: StaggeredGridView.countBuilder(
+              crossAxisCount: 12,
+              itemCount: skills.length,
+              shrinkWrap: true,
+              padding: EdgeInsetsDirectional.only(start: 16.w, top: 14.w, end: 16.w, bottom: 8.w),
+              itemBuilder: (BuildContext context, int index) => _circularProgress(
+                name: skills[index].key,
+                progress: skills[index].value,
+              ),
+              staggeredTileBuilder: (int index) => StaggeredTile.extent(3, 100.w),
+              mainAxisSpacing: 20.w,
+              crossAxisSpacing: 20.w,
             ),
           ),
-          StaggeredGridView.countBuilder(
-            crossAxisCount: 12,
-            itemCount: skills.length,
-            shrinkWrap: true,
-            padding: EdgeInsetsDirectional.only(start: 16.w, top: 14.w, end: 16.w, bottom: 24.w),
-            itemBuilder: (BuildContext context, int index) => _circularProgress(
-              name: skills[index].key,
-              progress: skills[index].value,
-            ),
-            staggeredTileBuilder: (int index) => StaggeredTile.count(
-              3,
-              () {
-                final bool lower = skills[index].value <= 50;
-                final bool low = skills[index].value <= 80;
-                final bool middle = skills[index].value > 80 && skills[index].value <= 90;
-                final bool high = skills[index].value > 90 && skills[index].value <= 100;
-                return lower ? 2 : low ? 3 : middle ? 4 : high ? 5 : 3;
-              }(),
-            ),
-            mainAxisSpacing: 10.w,
-            crossAxisSpacing: 20.w,
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   Container _circularProgress({String name, int progress}) {
     final Function path = (String name) => 'lib/assets/images/$name.svg';
     return Container(
-      height: 84.w,
-      width: 84.w,
-      child: CustomPaint(
-        painter: CircularProgressCustomPaint(progress, totalDots: 100),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Flexible(child: svg(path(name))),
-              Flexible(
-                child: Text(
-                  '$progress%',
-                  style: GoogleFonts.cairo(
-                    fontSize: textSize_12,
-                    fontWeight: FontWeight.w200,
-                    letterSpacing: 0.5,
-                  ),
+//      height: 84.w,
+//      width: 84.w,
+      child: Column(
+        children: <Widget>[
+          Expanded(
+            child: CustomPaint(
+              painter: CircularProgressCustomPaint(progress, totalDots: 100),
+              child: Container(
+                alignment: AlignmentDirectional.center,
+                decoration: BoxDecoration(
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      color: Colors.grey[100].withOpacity(0.5),
+                      blurRadius: 8,
+                      spreadRadius: -1,
+                    ),
+                  ],
+                  shape: BoxShape.circle,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Flexible(child: svg(path(name))),
+                    Flexible(
+                      child: Text(
+                        '$progress%',
+                        style: GoogleFonts.cairo(
+                          fontSize: textSize_12,
+                          fontWeight: FontWeight.w200,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
+            ),
           ),
-        ),
+          Text(
+            context.locale[name],
+            style: GoogleFonts.cairo(
+              fontSize: textSize_12,
+              fontWeight: FontWeight.w200,
+              letterSpacing: 0.5,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -139,6 +158,7 @@ class _SkillsState extends State<Skills> {
   Widget _softSkills() {
     const Widget indent = Indent(top: 24);
     return Container(
+      margin: EdgeInsets.only(top: 24.h, bottom: 12.h),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,

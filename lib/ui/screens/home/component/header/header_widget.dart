@@ -8,7 +8,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:transparent_image/transparent_image.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class HeaderWidget extends StatefulWidget {
   const HeaderWidget({Key key, this.theme}) : super(key: key);
@@ -72,12 +71,6 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                     ),
                   ],
                 ),
-                Positioned.fill(
-                  child: Align(
-                    alignment: AlignmentDirectional.centerEnd,
-                    child: _socials(),
-                  ),
-                ),
               ],
             ),
           ),
@@ -123,37 +116,6 @@ class _HeaderWidgetState extends State<HeaderWidget> {
           ),
         ),
       ],
-    );
-  }
-
-  Future<void> _launchURL([String url]) async {
-    String urlToOpen = url;
-    urlToOpen ??= 'https://flutter.dev';
-    if (await canLaunch(urlToOpen)) {
-      await launch(urlToOpen);
-    } else {
-      throw 'Could not launch $urlToOpen';
-    }
-  }
-
-  Widget _socials() {
-    return Container(
-      alignment: AlignmentDirectional.centerEnd,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: <Widget>[
-          InkWell(
-            onTap: () => _launchURL('https://www.upwork.com/o/profiles/users/~01fa2e59975803a44f/'),
-            child: svg('lib/assets/images/upwork_tile.svg'),
-          ),
-          const Indent(top: 12),
-          InkWell(
-            onTap: () => _launchURL('www.linkedin.com/in/vitalii-zeienko'),
-            child: svg('lib/assets/images/linkedin.svg'),
-          ),
-        ],
-      ),
     );
   }
 

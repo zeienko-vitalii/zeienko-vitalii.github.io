@@ -32,5 +32,5 @@ class AppLocalization {
 }
 
 extension LocalizationExt on BuildContext {
-  AppLocalization locale() => AppLocalization.of(this);
+  AppLocalization get locale => AppLocalization.of(this);
 }

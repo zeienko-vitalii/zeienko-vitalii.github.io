@@ -28,10 +28,7 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
 
   @override
   Widget getWidget(BuildContext context) {
-    return BlocConsumer<HomeBloc, BaseBlocState>(
-      listener: (BuildContext context, BaseBlocState state) {
-        // do stuff here based on BlocA's state
-      },
+    return BlocBuilder<HomeBloc, BaseBlocState>(
       builder: (BuildContext context, BaseBlocState state) {
         ThemeData theme = _bloc.themeDataState;
         if (state is UpdateThemeState) {
@@ -77,7 +74,6 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
   }
 
   Widget _content(ThemeData theme) {
-    //            color: theme.primaryColor,
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
@@ -108,7 +104,9 @@ class _HomeWidgetState extends BaseState<HomeWidget> {
   bool _updateOffsetAccordingToScroll(ScrollNotification scroll) {
     print('${scroll.metrics.pixels}');
     _bloc.add(ScrollNotificationEvent(scroll));
-    setState(() => parallaxOffset = scroll.metrics.pixels);
+//    setState(() =>
+    parallaxOffset = scroll.metrics.pixels;
+//    );
     return true;
   }
 }

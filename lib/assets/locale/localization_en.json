@@ -7,5 +7,15 @@
   "friday": "Friday",
   "saturday": "Saturday",
   "sunday": "Sunday",
-  "about_me": "I deliver standalone, flexible and extendable software products by virtue of building good architecture of the app and using the most suitable way to solve different kind of problems. I've worked on 5 production projects developing native Android apps and 2 production projects using Flutter framework.\n  As Flutter developer I’m experienced with: Dart lang, RxDart, working with HTTP in Flutter, Firebase Framework (Core, Auth, Database, Storage, Messaging), effectively scale UI according to different screen sizes, localization of the app, GoogleMaps and working with location, SharedPreferences, Share via other apps, pdf and csv generating.\n    As Android Native developer I’m experienced with: developing multi-threading in android for smoothly and user-friendly work with application, Websocket, RxJava/RxAndroid, Firebase Framework, Room ORM, Retrofit, Glide/Picasso. In addition, I’m experienced with connection and setup CI/CD Codemagic for iOS and Android, also with Travis CI and fast lane CI/CD tooling.\n    As for architecture most commonly I use BLoC for Flutter apps, Clean Architecture + Repository + MVP, also familiar with MVC and MVVM."
+  "about_me": "\tI deliver standalone, flexible and extendable software products by virtue of building good architecture of the app and using the most suitable way to solve different kind of problems.\n\tAs Flutter developer I’m experienced with: Dart lang, RxDart, working with HTTP in Flutter, Firebase Framework, effectively scale UI according to different screen sizes, localization of the app with RTL support, GoogleMaps and working with location, caching data and sharing data via other apps.\n\tI’m experienced with CI/CD for smoothly testing and releasing applications bot for iOS and Android. For this purpose I use Codemagic and fastlane CI/CD tooling.\n\tAs for architecture most commonly I use BLoC for Flutter apps might be with elements of Clean Architecture and Repository pattern.",
+  "flutter": "Flutter",
+  "dart": "Dart",
+  "android": "Android",
+  "firebase": "Firebase Services",
+  "reactivex": "ReactiveX",
+  "google_maps": "Google Maps",
+  "ios_apple": "iOS",
+  "java": "Java",
+  "kotlin": "Kotlin",
+  "swift_1": "Swift"
 }

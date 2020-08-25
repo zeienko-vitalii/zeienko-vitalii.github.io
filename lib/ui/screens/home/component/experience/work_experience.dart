@@ -70,7 +70,7 @@ class _WorkExperienceState extends State<WorkExperience> {
               itemBuilder: (BuildContext context, int index) => ProjectCard(
                 image: index.isEven ? 'lib/assets/images/flutter.svg' : 'lib/assets/images/android.svg',
               ),
-              staggeredTileBuilder: (int index) => StaggeredTile.count(3, index.isEven ? 2 : 2),
+              staggeredTileBuilder: (int index) => StaggeredTile.extent(3, 240.w),
               mainAxisSpacing: 20.w,
               crossAxisSpacing: 20.w,
             ),

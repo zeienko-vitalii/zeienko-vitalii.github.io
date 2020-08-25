@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutMe extends StatefulWidget {
   const AboutMe({Key key}) : super(key: key);
@@ -40,12 +41,29 @@ class _AboutMeState extends State<AboutMe> {
           Expanded(
             child: Column(
               children: <Widget>[
-                Expanded(child: _aboutMeDescription()),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 62.w, vertical: 64.h),
-                  height: 0.1.h,
-                  color: Colors.black,
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsetsDirectional.only(top: 34.w),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(child: _aboutMeDescription()),
+                        Expanded(
+                          child: Image.asset(
+                            'lib/assets/images/profile_photo.jpg',
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+//                    Expanded(child: _socials()),
+                      ],
+                    ),
+                  ),
                 ),
+//                Container(
+//                  margin: EdgeInsets.symmetric(horizontal: 62.w, vertical: 64.h),
+//                  height: 0.1.h,
+//                  color: Colors.black,
+//                ),
                 _statistics(),
               ],
             ),
@@ -57,8 +75,10 @@ class _AboutMeState extends State<AboutMe> {
 
   Widget _aboutMeDescription() {
     return Container(
-      margin: EdgeInsetsDirectional.only(start: 34.w, top: 34.h, end: 34.w),
+      margin: EdgeInsetsDirectional.only(start: 34.w,  end: 34.w),
       padding: EdgeInsets.all(12.w),
+      width: ScreenUtil.screenWidth / 2,
+      alignment: AlignmentDirectional.centerStart,
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: <BoxShadow>[
@@ -71,7 +91,7 @@ class _AboutMeState extends State<AboutMe> {
       ),
       child: SingleChildScrollView(
         child: Text(
-          context.locale()['about_me'],
+          context.locale['about_me'],
           softWrap: true,
           overflow: TextOverflow.fade,
           style: GoogleFonts.cairo(
@@ -131,6 +151,44 @@ class _AboutMeState extends State<AboutMe> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Future<void> _launchURL([String url]) async {
+    String urlToOpen = url;
+    urlToOpen ??= 'https://flutter.dev';
+    if (await canLaunch(urlToOpen)) {
+      await launch(urlToOpen);
+    } else {
+      throw 'Could not launch $urlToOpen';
+    }
+  }
+
+  Widget _socials() {
+    return Container(
+      alignment: AlignmentDirectional.center,
+      child: Column(
+        children: <Widget>[
+          Container(
+            child: Text(''),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              InkWell(
+                onTap: () => _launchURL('https://www.upwork.com/o/profiles/users/~01fa2e59975803a44f/'),
+                child: svg('lib/assets/images/upwork_tile.svg'),
+              ),
+              const Indent(top: 12),
+              InkWell(
+                onTap: () => _launchURL('www.linkedin.com/in/vitalii-zeienko'),
+                child: svg('lib/assets/images/linkedin.svg'),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

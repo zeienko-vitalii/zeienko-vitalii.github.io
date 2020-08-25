@@ -21,7 +21,7 @@ class CircularProgressCustomPaint extends CustomPainter {
     final Paint paint = Paint()
       ..color = Colors.red
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 6
+      ..strokeWidth = 4
       ..strokeCap = StrokeCap.round
       ..shader = _gradientShader(size);
     final double actualCurrentValue = _circleCurrentValue * _CURRENT_ANGLE_MAX / totalDots;
@@ -42,6 +42,10 @@ class CircularProgressCustomPaint extends CustomPainter {
         Color(0xFF5FEEE3),
         Color(0xFF639eff),
         Color(0xFF5185F9),
+//        Colors.black12,
+//        Colors.black45,
+//        Colors.black87,
+//        Colors.black,
       ],
     );
     return gradient.createShader(Rect.fromCircle(
